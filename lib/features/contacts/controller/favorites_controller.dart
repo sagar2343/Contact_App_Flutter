@@ -41,6 +41,6 @@ class FavoritesController {
   void onContactTap(ContactModel contact) {
     Navigator.of(context)
         .push(AppPageRoute.slideFade(ContactDetailScreen(contact: contact)))
-        .then((_) => _loadFavorites()); // refresh on return
+        .then((_) => _loadFavorites());
   }
 }

@@ -1,5 +1,6 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../config/theme/app_pallete.dart';
 
@@ -54,19 +55,32 @@ class Helpers {
       String phoneNumber,
       ) async {
     final cleaned = phoneNumber.replaceAll(RegExp(r'[\s\-\(\)]'), '');
-    final uri = Uri(scheme: 'tel', path: cleaned);
 
     try {
-      await launchUrl(
-        uri,
-        mode: LaunchMode.externalApplication,
-      );
+      if (Theme.of(context).platform == TargetPlatform.android) {
+        final called = await FlutterPhoneDirectCaller.callNumber(cleaned);
+        if (called != true && context.mounted) {
+          showSnackBar(
+            context,
+            'Could not place call. Check permissions.',
+            type: SnackType.error,
+          );
+        }
+      } else {
+        final uri = Uri(scheme: 'telprompt', path: cleaned);
+        if (await canLaunchUrl(uri)) {
+          await launchUrl(uri);
+        } else {
+          final fallback = Uri(scheme: 'tel', path: cleaned);
+          await launchUrl(fallback, mode: LaunchMode.externalApplication);
+        }
+      }
     } catch (e) {
       debugPrint('Phone call error: $e');
       if (context.mounted) {
         showSnackBar(
           context,
-          'Could not make call. Please try again.',
+          'Failed to make call. Please try again.',
           type: SnackType.error,
         );
       }

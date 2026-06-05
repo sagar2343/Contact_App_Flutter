@@ -14,13 +14,15 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
 
-  static const List<Widget> _screens = [
-    ContactsScreen(),
-    FavoritesScreen(),
-  ];
+  final GlobalKey<FavoritesScreenState> _favoritesKey =
+  GlobalKey<FavoritesScreenState>();
 
   void _onTabChanged(int index) {
     setState(() => _currentIndex = index);
+
+    if (index == 1) {
+      _favoritesKey.currentState?.refresh();
+    }
   }
 
   @override
@@ -30,9 +32,11 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: IndexedStack(
         index: _currentIndex,
-        children: _screens,
+        children: [
+          const ContactsScreen(),
+          FavoritesScreen(key: _favoritesKey),
+        ],
       ),
-
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: isDark ? Pallete.surfaceDark : Pallete.surfaceLight,

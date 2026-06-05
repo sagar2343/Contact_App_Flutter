@@ -10,10 +10,10 @@ class FavoritesScreen extends StatefulWidget {
   const FavoritesScreen({super.key});
 
   @override
-  State<FavoritesScreen> createState() => _FavoritesScreenState();
+  State<FavoritesScreen> createState() => FavoritesScreenState();
 }
 
-class _FavoritesScreenState extends State<FavoritesScreen> {
+class FavoritesScreenState extends State<FavoritesScreen> {
   late final FavoritesController _controller;
 
   @override
@@ -25,6 +25,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     );
     _controller.init();
   }
+
+  void refresh() => _controller.onRefresh();
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +56,6 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
             ),
           ],
         ),
-
         body: _controller.isLoading
             ? const Center(child: CircularProgressIndicator())
             : RefreshIndicator(
@@ -89,8 +90,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
         const EmptyStateWidget(
           icon: Icons.star_border_rounded,
           title: 'No Favourites Yet',
-          subtitle:
-          'Open a contact and tap the star icon to add them here.',
+          subtitle: 'Open a contact and tap the star icon to add them here.',
         ),
       ],
     );
