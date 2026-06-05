@@ -53,25 +53,20 @@ class Helpers {
       BuildContext context,
       String phoneNumber,
       ) async {
-    final uri = Uri(scheme: 'tel', path: phoneNumber);
+    final cleaned = phoneNumber.replaceAll(RegExp(r'[\s\-\(\)]'), '');
+    final uri = Uri(scheme: 'tel', path: cleaned);
+
     try {
-      if (await canLaunchUrl(uri)) {
-        await launchUrl(uri);
-      } else {
-        if (context.mounted) {
-          showSnackBar(
-            context,
-            'Could not launch dialer for $phoneNumber',
-            type: SnackType.error,
-          );
-        }
-      }
+      await launchUrl(
+        uri,
+        mode: LaunchMode.externalApplication,
+      );
     } catch (e) {
       debugPrint('Phone call error: $e');
       if (context.mounted) {
         showSnackBar(
           context,
-          'Failed to make call. Please try again.',
+          'Could not make call. Please try again.',
           type: SnackType.error,
         );
       }
