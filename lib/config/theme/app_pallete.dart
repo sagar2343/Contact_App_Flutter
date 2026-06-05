@@ -1,0 +1,44 @@
+import 'package:flutter/material.dart';
+
+class Pallete {
+  // ── Brand / Primary
+  static const Color primaryColor = Color(0xff137fec);
+  static const Color primaryLightColor = Color(0xff4a9ff5);
+
+  // ── Dark Theme
+  static const Color backgroundDark = Color(0xff0B1117);
+  static const Color surfaceDark = Color(0xff161D26);
+  static const Color borderDark = Color(0xff242D38);
+  static const Color textPrimaryDark = Color(0xffffffff);
+  static const Color textSecondaryDark = Color(0xff94a3b8);
+
+  // ── Light Theme
+  static const Color backgroundLight = Color(0xfff6f7f8);
+  static const Color surfaceLight = Color(0xffffffff);
+  static const Color borderLight = Color(0xffe2e8f0);
+  static const Color textPrimaryLight = Color(0xff0d141b);
+  static const Color textSecondaryLight = Color(0xff64748b);
+
+  // ── Status Colors
+  static const Color successColor = Color(0xff10b981);
+  static const Color errorColor = Color(0xffef4444);
+  static const Color warningColor = Color(0xfff59e0b);
+  static const Color infoColor = Color(0xff3b82f6);
+
+  // ── Accent Shorthands
+  static const kGreen = Color(0xFF10B981);
+  static const kAmber = Color(0xFFF59E0B);
+  static const kRed   = Color(0xFFEF4444);
+  static const kBlue  = Color(0xFF3B82F6);
+
+  // ── Gradients
+  static const Color gradient1 = Color(0xff137fec);
+  static const Color gradient2 = Color(0xff4a9ff5);
+  static const Color gradient3 = Color(0xff7db9f7);
+
+  // ── Utility
+  static const Color inactiveIcon  = Color(0xff94a3b8);
+  static const Color transparent   = Colors.transparent;
+  static const Color shadowLight   = Color(0x0d000000);
+  static const Color shadowDark    = Color(0x66000000);
+}
